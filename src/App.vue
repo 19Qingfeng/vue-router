@@ -1,13 +1,30 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link>
+      <p>|</p>
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view dataView="true">children</router-view>
   </div>
 </template>
-
+<script>
+export default {
+  name: "APP",
+  data() {
+    return {
+      obj: {
+        name: 'wang.haoyu'
+      }
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      console.log(this)
+    }, 1000)
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
