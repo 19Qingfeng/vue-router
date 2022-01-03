@@ -6,6 +6,8 @@ import install from './install';
 class VueRouter {
   constructor(options) {
     this.options = options;
+    // 存放路由守卫
+    this.beforeHooks = [];
     // 匹配器 扁平化options.routes对象
     this.matcher = createMatcher(options.routes || []);
     // 路由模式 仅考虑浏览器中的history和hash 不考虑SSR中的 abstract
@@ -51,9 +53,13 @@ class VueRouter {
       // this.apps.forEach((app) => {
       // 让route改变 实时修改 rootInstance._route 响应式属性
       rootInstance._route = route;
-      console.log(rootInstance._route, 'rootInstance._route ');
       // });
     });
+  }
+
+  // 全局导航守卫
+  beforeEach(cb) {
+    this.beforeHooks.push(cb);
   }
 }
 

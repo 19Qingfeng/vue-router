@@ -1,3 +1,18 @@
+// 迭代导航守卫
+function runQueue(queue, iterate, cb) {
+  let counter = 0;
+
+  function step(index) {
+    if (counter >= queue.length) {
+      return cb();
+    }
+    const hook = queue[index];
+    iterate(hook, () => step(++counter));
+  }
+
+  step(0);
+}
+
 /**
  *
  * 根据当前路径寻找匹配的所有路由记录
@@ -52,11 +67,21 @@ class BaseHistory {
     ) {
       return;
     }
-    console.log('更新一次*********');
 
-    // 此时我应该修改current的值
-    this.updateRoute(record);
-    onComplete && onComplete();
+    // 跳转之后执行导航守卫
+    const queue = [].concat(this.router.beforeHooks);
+
+    const iterate = (hook, next) => {
+      hook(this.current.path, record.path, () => {
+        next();
+      });
+    };
+
+    runQueue(queue, iterate, () => {
+      // 此时我应该修改current的值
+      this.updateRoute(record);
+      onComplete && onComplete();
+    });
   }
 
   // 更新current的值

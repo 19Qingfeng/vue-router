@@ -8,6 +8,7 @@ export default {
     let depth = 0;
     // 非根节点
     while (parent && parent._routerRoot !== parent) {
+      console.log(parent.$options.name, 'name');
       // parent.$vnode 当前节点的父节点
       // 比如二级前套路由中
       // parent表示当前router-view节点的父亲节点
@@ -20,6 +21,7 @@ export default {
       }
       // 递归
       parent = parent.$parent;
+      console.log(parent, 'parent');
     }
 
     // console.log(ctx.parent, 'parent');

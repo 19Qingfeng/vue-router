@@ -4,7 +4,7 @@
     <router-link to="/a">a---a</router-link>
     <br />
     <router-link to="/b">b---b</router-link>
-    <router-view></router-view>
+    <!-- <router-view></router-view> -->
   </div>
 </template>
 

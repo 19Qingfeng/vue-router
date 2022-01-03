@@ -91,4 +91,11 @@ router.matcher.addRoutes([
   },
 ]);
 
+router.beforeEach((from, to, next) => {
+  setTimeout(() => {
+    console.log(from, to, 'from to');
+    next();
+  }, 1000);
+});
+
 export default router;
